@@ -1,5 +1,10 @@
 package primitives;
 
+/**
+ * This class is the base of all classes using points
+ *
+ * @author Benjamin Mamistvalov, Eyal Nathan
+ */
 public class Point {
     final protected Double3 xyz;
 
