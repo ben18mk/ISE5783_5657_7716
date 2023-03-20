@@ -1,7 +1,7 @@
 package primitives;
 
 /**
- * This class is the base of all classes using vectors
+ * This class is the base for all classes using vectors
  *
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
@@ -14,7 +14,7 @@ public class Vector extends Point {
      * @param z third number value
      */
     public Vector(double x, double y, double z) {
-        this(new Double3(x, y, z));
+        this(new Double3(x, y, z)); // May impact performance!!!
     }
 
     /**
@@ -25,6 +25,7 @@ public class Vector extends Point {
      */
     protected Vector(Double3 xyz) {
         super(xyz);
+
         if (xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("The Zero Vector is illegal");
     }

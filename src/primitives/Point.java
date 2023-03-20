@@ -1,7 +1,7 @@
 package primitives;
 
 /**
- * This class is the base of all classes using points
+ * This class is the base for all classes using points
  *
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
@@ -25,7 +25,7 @@ public class Point {
      * @param xyz Double3 object
      */
     protected Point(Double3 xyz) {
-        this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3); // Avoid passing the same object
+        this.xyz = xyz;
     }
 
     /**

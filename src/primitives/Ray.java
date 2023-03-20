@@ -1,7 +1,7 @@
 package primitives;
 
 /**
- * This class is base of all classes using rays
+ * This class is base for all classes using rays
  *
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
@@ -10,7 +10,7 @@ public class Ray {
     private final Vector dir;
 
     /**
-     * Constructor to initialize Ray based object with its start Point and direction Vection
+     * Constructor to initialize Ray based object with its start Point and direction Vector
      *
      * @param p0 start Point
      * @param dir direction Vector
@@ -18,6 +18,24 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
+    }
+
+    /**
+     * Get the starting Point object of the Ray object
+     *
+     * @return starting Point object of the Ray object
+     */
+    public Point getStartPoint() {
+        return this.p0;
+    }
+
+    /**
+     * Get the direction Vector object of the Ray object
+     *
+     * @return direction Vector object of the Ray object
+     */
+    public Vector getDirection() {
+        return this.dir;
     }
 
     @Override
@@ -30,6 +48,6 @@ public class Ray {
 
     @Override
     public String toString() {
-        return String.format("Ray {Start = %s, Direction = %s}", this.p0, this.dir);
+        return String.format("Ray {Start: %s, Direction: %s}", this.p0, this.dir);
     }
 }
