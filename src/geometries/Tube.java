@@ -1,7 +1,6 @@
 package geometries;
 
 import primitives.*;
-import static primitives.Util.isZero;
 
 /**
  * This class is the base for all classes using tubes
