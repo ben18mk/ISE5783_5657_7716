@@ -38,26 +38,7 @@ public class Cylinder extends Tube {
 
     @Override
     public Vector getNormal(Point point) {
-        Point bottomPoint = this.axisRay.getStartPoint();
-        Vector dir = this.axisRay.getDirection();
-        
-        if (point.equals(bottomPoint)) // Check if the point is the bottom center point of the cylinder
-            return dir.scale(-1); // Returns the vector, opposite to the axis direction vector
-
-        // Get the projection created by the axis vector and the vector between the top center point and the point
-        double projection = dir.dotProduct(point.subtract(bottomPoint.add(dir.scale(this.height)))); // TODO: Maybe add AlignZero()
-        if (isZero(projection))
-            return dir; // If the projection is 0, it means that the point is on the top part of the cylinder
-
-        // Get the projection created by the axis vector and the vector between the bottom center point and the point
-        projection = dir.dotProduct(point.subtract(bottomPoint)); // TODO: Maybe add AlignZero()
-        if (isZero(projection))
-            return dir.scale(-1); // If the projection is 0, it means that the point is on the top part of the cylinder
-
-        // Otherwise, the point is on the side of the cylinder
-        // NOTE: I use bottomPoint to save the orthogonal point on the ray and not create a new variable in order not to harm performance
-        bottomPoint = bottomPoint.add(dir.scale(projection));
-        return point.subtract(bottomPoint).normalize();
+        return null;
     }
 
     @Override

@@ -33,12 +33,7 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point point) {
-        Point rayPoint = this.axisRay.getStartPoint();
-        Vector dir = this.axisRay.getDirection();
-        double projection = dir.dotProduct(point.subtract(rayPoint)); // TODO: Maybe add AlignZero()
-
-        rayPoint = isZero(projection) ? rayPoint : rayPoint.add(dir.scale(projection));
-        return point.subtract(rayPoint).normalize();
+        return null;
     }
 
     @Override

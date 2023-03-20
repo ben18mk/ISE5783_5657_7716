@@ -57,7 +57,7 @@ public class Vector extends Point {
      * @return scalar number resulting from the product
      */
     public double dotProduct(Vector other) {
-        return this.xyz.d1 * other.xyz.d1 + this.xyz.d2 + other.xyz.d2 + this.xyz.d3 * other.xyz.d3;
+        return this.xyz.d1 * other.xyz.d1 + this.xyz.d2 * other.xyz.d2 + this.xyz.d3 * other.xyz.d3;
     }
 
     /**
@@ -73,7 +73,7 @@ public class Vector extends Point {
         double j = this.xyz.d1 * other.xyz.d3 - this.xyz.d3 * other.xyz.d1;
         double k = this.xyz.d1 * other.xyz.d2 - this.xyz.d2 * other.xyz.d1;
 
-        return new Vector(i, j, k);
+        return new Vector(i, -j, k);
     }
 
     /**
