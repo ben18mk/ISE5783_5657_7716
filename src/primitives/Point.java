@@ -6,7 +6,7 @@ package primitives;
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
 public class Point {
-    final protected Double3 xyz;
+    protected final Double3 xyz;
 
     /**
      * Constructor to initialize Point based object with its three number values
@@ -75,9 +75,9 @@ public class Point {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Point other)) return false;
-        return this.xyz.equals(other.xyz);
+        if (obj instanceof Point other)
+            return this.xyz.equals(other.xyz);
+        return false;
     }
 
     @Override
