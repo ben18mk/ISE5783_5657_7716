@@ -1,9 +1,20 @@
 package primitives;
 
+/**
+ * This class is base of all classes using rays
+ *
+ * @author Benjamin Mamistvalov, Eyal Nathan
+ */
 public class Ray {
     private final Point p0;
     private final Vector dir;
 
+    /**
+     * Constructor to initialize Ray based object with its start Point and direction Vection
+     *
+     * @param p0 start Point
+     * @param dir direction Vector
+     */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
