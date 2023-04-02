@@ -37,7 +37,7 @@ class PointTest {
         // TC10: Test zero point from point subtraction p1 - p1
         assertThrows(
                 IllegalArgumentException.class,
-                ()->p1.subtract(p1),
+                () -> p1.subtract(p1),
                 "ERROR: Point - itself does not throw an exception"
         );
     }

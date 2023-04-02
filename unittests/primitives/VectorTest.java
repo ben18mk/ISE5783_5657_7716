@@ -28,7 +28,7 @@ class VectorTest {
         // TC10: Test zero vector from vector adding v1 + -v1
         assertThrows(
                 IllegalArgumentException.class,
-                ()->v1.add(new Vector(-1, -2, -3)),
+                () -> v1.add(new Vector(-1, -2, -3)),
                 "ERROR: Vector + -itself does not throw an exception"
         );
     }
@@ -51,7 +51,7 @@ class VectorTest {
         // TC10: Test zero vector from scaling a vector by 0
         assertThrows(
                 IllegalArgumentException.class,
-                ()->v1.scale(0),
+                () -> v1.scale(0),
                 "ERROR: Vector scaled by 0 does not throw an exception"
         );
     }
@@ -109,7 +109,7 @@ class VectorTest {
         Vector v3 = new Vector(-2, -4, -6);
         assertThrows(
                 IllegalArgumentException.class,
-                ()->v1.crossProduct(v3),
+                () -> v1.crossProduct(v3),
                 "ERROR: crossProduct() for parallel vectors does not throw an exception"
         );
     }
@@ -160,7 +160,7 @@ class VectorTest {
         // TC10: Test zero vector from cross-product of co-lined vectors
         assertThrows(
                 IllegalArgumentException.class,
-                ()->v.crossProduct(u),
+                () -> v.crossProduct(u),
                 "ERROR: the normalized vector is not parallel to the original one"
         );
     }
