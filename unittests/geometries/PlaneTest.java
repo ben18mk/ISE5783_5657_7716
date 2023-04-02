@@ -22,14 +22,14 @@ class PlaneTest {
         // TC10: Test when 2 points are the same
         assertThrows(
                 IllegalArgumentException.class,
-                ()->new Plane(p, p, new Point(0, 0, 1)),
+                () -> new Plane(p, p, new Point(0, 0, 1)),
                 "ERROR: ctor() does not throw an exception when 2 points are the same"
         );
 
         // TC11: Test when all 3 points are on the same line
         assertThrows(
                 IllegalArgumentException.class,
-                ()->new Plane(p, new Point(2, 0, 0), new Point(3, 0, 0)),
+                () -> new Plane(p, new Point(2, 0, 0), new Point(3, 0, 0)),
                 "ERROR: ctor() does not throw an exception when all 3 points are on the same line"
         );
     }
@@ -51,8 +51,8 @@ class PlaneTest {
 
         assertEquals(1, normal.length(), "ERROR: getNormal() vector is not the unit vector");
         assertTrue(
-                normal.equals(new Vector(1, 1, 1)) ||
-                normal.equals(new Vector(-1, -1, -1)),
+                normal.equals(new Vector(1, 1, 1).normalize()) ||
+                normal.equals(new Vector(-1, -1, -1).normalize()),
                 "ERROR: getNormal() wrong value");
     }
 }

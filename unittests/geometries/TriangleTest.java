@@ -28,8 +28,8 @@ class TriangleTest {
 
         assertEquals(1, normal.length(), "ERROR: getNormal() vector is not the unit vector");
         assertTrue(
-                normal.equals(new Vector(1, 1, 1)) ||
-                        normal.equals(new Vector(-1, -1, -1)),
+                normal.equals(new Vector(1, 1, 1).normalize()) ||
+                        normal.equals(new Vector(-1, -1, -1).normalize()),
                 "ERROR: getNormal() wrong value");
     }
 }

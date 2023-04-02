@@ -2,6 +2,9 @@ package geometries;
 
 import primitives.*;
 
+import static primitives.Util.isZero;
+import static primitives.Util.alignZero;
+
 /**
  * This class is the base for all classes using tubes
  *
@@ -32,7 +35,12 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        Point rayPoint = this.axisRay.getStartPoint();
+        Vector dir = this.axisRay.getDirection();
+        double projection = alignZero(dir.dotProduct(point.subtract(rayPoint)));
+
+        rayPoint = isZero(projection) ? rayPoint : rayPoint.add(dir.scale(projection));
+        return point.subtract(rayPoint).normalize();
     }
 
     @Override
