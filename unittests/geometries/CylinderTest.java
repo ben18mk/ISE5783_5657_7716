@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testing Cylinder
- * @author Benjamin Mamistvalov
+ * @author Benjamin Mamistvalov, Eyal Nathan
  */
 class CylinderTest {
 
