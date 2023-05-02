@@ -29,6 +29,33 @@ public class Point {
     }
 
     /**
+     * Gets the x value
+     *
+     * @return x value
+     */
+    public double getX() {
+        return this.xyz.d1;
+    }
+
+    /**
+     * Gets the y value
+     *
+     * @return y value
+     */
+    public double getY() {
+        return this.xyz.d2;
+    }
+
+    /**
+     * Gets the z value
+     *
+     * @return z value
+     */
+    public double getZ() {
+        return this.xyz.d3;
+    }
+
+    /**
      * Subtract this Point object with another Point object and result with a new Vector object representing the delta
      * between these 2 Point objects
      *
