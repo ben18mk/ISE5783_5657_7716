@@ -2,7 +2,10 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +21,7 @@ class TriangleTest {
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
-        // TC01: There is a simple single test here
+        // EP01: There is a simple single test here
         Point p1 = new Point(1, 0, 0);
         Point p2 = new Point(0, 1, 0);
         Point p3 = new Point(0, 0, 1);
@@ -31,5 +34,55 @@ class TriangleTest {
                 normal.equals(new Vector(1, 1, 1).normalize()) ||
                         normal.equals(new Vector(-1, -1, -1).normalize()),
                 "ERROR: getNormal() wrong value");
+    }
+
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}
+     */
+    @Test
+    void testFindIntersections() {
+        Triangle triangle = new Triangle(
+                new Point(1, 0, 0),
+                new Point(1, 1, 0),
+                new Point(0, 1, 0)
+        );
+
+        // ============ Equivalence Partitions Tests ==============
+        // EP01: Ray intersects with the Triangle (1 inter. point)
+        Ray ray = new Ray(new Point(0.5, 0.75, -2), new Vector(0, 0, 1));
+        List<Point> expected = List.of(new Point(0.5, 0.75, 0));
+        List<Point> result = triangle.findIntersections(ray);
+        assertEquals(
+                1,
+                result.size(),
+                String.format("EP01: Wrong amount of points (Got %d; Must be 1)", result.size())
+        );
+        assertEquals(expected, result, "EP01: Wrong intersection point");
+
+        // EP02: Ray does not intersect with the triangle (0 inter. points)
+        ray = new Ray(new Point(2, 3, -2), new Vector(0, 0, 1));
+        result = triangle.findIntersections(ray);
+        assertNull(result, "EP02: Wrong amount of points");
+
+        // =============== Boundary Values Tests ==================
+        // BV01: Ray intersects with an edge of the triangle (0 inter. points)
+        ray = new Ray(new Point(0.5, 1, 1), new Vector(0, 0, -1));
+        result = triangle.findIntersections(ray);
+        assertNull(result, "BV01: Wrong amount of points");
+
+        // BV02: Ray intersects with a vertex of the triangle (0 inter. points)
+        ray = new Ray(new Point(0, 1, 1), new Vector(0, 0, -1));
+        result = triangle.findIntersections(ray);
+        assertNull(result, "BV02: Wrong amount of points");
+
+        // BV03: Ray intersects with an edge of the triangle continuation (0 inter. points)
+        ray = new Ray(new Point(-1, 1, 1), new Vector(0, 0, -1));
+        result = triangle.findIntersections(ray);
+        assertNull(result, "BV03: Wrong amount of points");
+
+        // BV04: Ray starts on the triangle
+        ray = new Ray(new Point(0.5, 0.75, 0), new Vector(0, 0, 1));
+        result = triangle.findIntersections(ray);
+        assertNull(result, "BV04: Wrong amount of points");
     }
 }

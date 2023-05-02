@@ -7,7 +7,7 @@ import primitives.*;
  *
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
     /**
      * Find the normal of the geometry at the given point on the surface of the geometry.
      *
