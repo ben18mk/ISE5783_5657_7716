@@ -65,24 +65,24 @@ class TriangleTest {
         assertNull(result, "EP02: Wrong amount of points");
 
         // =============== Boundary Values Tests ==================
-        // BV01: Ray intersects with an edge of the triangle (0 inter. points)
+        // BVA01: Ray intersects with an edge of the triangle (0 inter. points)
         ray = new Ray(new Point(0.5, 1, 1), new Vector(0, 0, -1));
         result = triangle.findIntersections(ray);
-        assertNull(result, "BV01: Wrong amount of points");
+        assertNull(result, "BVA01: Wrong amount of points");
 
-        // BV02: Ray intersects with a vertex of the triangle (0 inter. points)
+        // BVA02: Ray intersects with a vertex of the triangle (0 inter. points)
         ray = new Ray(new Point(0, 1, 1), new Vector(0, 0, -1));
         result = triangle.findIntersections(ray);
-        assertNull(result, "BV02: Wrong amount of points");
+        assertNull(result, "BVA02: Wrong amount of points");
 
-        // BV03: Ray intersects with an edge of the triangle continuation (0 inter. points)
+        // BVA03: Ray intersects with an edge of the triangle continuation (0 inter. points)
         ray = new Ray(new Point(-1, 1, 1), new Vector(0, 0, -1));
         result = triangle.findIntersections(ray);
-        assertNull(result, "BV03: Wrong amount of points");
+        assertNull(result, "BVA03: Wrong amount of points");
 
-        // BV04: Ray starts on the triangle
+        // BVA04: Ray starts on the triangle
         ray = new Ray(new Point(0.5, 0.75, 0), new Vector(0, 0, 1));
         result = triangle.findIntersections(ray);
-        assertNull(result, "BV04: Wrong amount of points");
+        assertNull(result, "BVA04: Wrong amount of points");
     }
 }

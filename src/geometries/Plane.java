@@ -4,6 +4,9 @@ import primitives.*;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * This class represents a Plane object
  *
@@ -55,10 +58,22 @@ public class Plane implements Geometry {
         Point P0 = ray.getStartPoint();
         Vector v = ray.getDirection();
 
-        double t = this.normal.dotProduct(this.q0.subtract(P0));
-        t /= this.normal.dotProduct(v);
+        double t;
+        double nv = this.normal.dotProduct(v);
 
-        return List.of(P0.add(v.scale(t)));
+        if (isZero(nv))
+            return null;
+
+        try
+        {
+            t = alignZero(this.normal.dotProduct(this.q0.subtract(P0)) / nv);
+        }
+        catch (IllegalArgumentException e)
+        {
+            return null;
+        }
+
+        return t > 0 ? List.of(ray.getPoint(t)) : null;
     }
 
     @Override
