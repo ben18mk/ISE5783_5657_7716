@@ -14,7 +14,10 @@ public class Vector extends Point {
      * @param z third number value
      */
     public Vector(double x, double y, double z) {
-        this(new Double3(x, y, z)); // May impact performance!!!
+        super(x,y,z);
+
+        if (xyz.equals(Double3.ZERO))
+            throw new IllegalArgumentException("The Zero Vector is illegal");
     }
 
     /**

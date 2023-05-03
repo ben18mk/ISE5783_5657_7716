@@ -23,17 +23,18 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    // TODO: Maybe remove if imp in Polygon
     @Override
     public List<Point> findIntersections(Ray ray) {
-        Vector v1 = super.vertices.get(1).subtract(super.vertices.get(0));
-        Vector v2 = super.vertices.get(2).subtract(super.vertices.get(0));
-        Vector v3 = super.vertices.get(3).subtract(super.vertices.get(0));
+        Point P0 = ray.getStartPoint();
+        Vector v = ray.getDirection();
+
+        Vector v1 = super.vertices.get(0).subtract(P0);
+        Vector v2 = super.vertices.get(1).subtract(P0);
+        Vector v3 = super.vertices.get(2).subtract(P0);
+
         Vector n1 = v1.crossProduct(v2).normalize();
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();
-
-        Vector v = ray.getDirection();
 
         if (!(v.dotProduct(n1) > 0 && v.dotProduct(n2) > 0 && v.dotProduct(n3) > 0 ||
                 v.dotProduct(n1) < 0 && v.dotProduct(n2) < 0 && v.dotProduct(n3) < 0))
