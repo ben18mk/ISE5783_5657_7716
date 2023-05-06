@@ -107,6 +107,57 @@ public class Vector extends Point {
         return new Vector(this.xyz.reduce(this.length()));
     }
 
+    /**
+     * Rotates this Vector on the X axis
+     *
+     * @param angle angle of rotation
+     * @return the rotated vector
+     */
+    public Vector rotateX(double angle) {
+        double sin = Math.sin(Math.toRadians(angle));
+        double cos = Math.cos(Math.toRadians(angle));
+
+        double x = this.xyz.d1;
+        double y = cos * this.xyz.d2 - sin * this.xyz.d3;
+        double z = sin * this.xyz.d2 + cos * this.xyz.d3;
+
+        return new Vector(x, y, z);
+    }
+
+    /**
+     * Rotates this Vector on the Y axis
+     *
+     * @param angle angle of rotation
+     * @return the rotated vector
+     */
+    public Vector rotateY(double angle) {
+        double sin = Math.sin(Math.toRadians(angle));
+        double cos = Math.cos(Math.toRadians(angle));
+
+        double x = cos * this.xyz.d1 + sin * this.xyz.d3;
+        double y = this.xyz.d2;
+        double z = -sin * this.xyz.d1 + cos * this.xyz.d3;
+
+        return new Vector(x, y, z);
+    }
+
+    /**
+     * Rotates this Vector on the Z axis
+     *
+     * @param angle angle of rotation
+     * @return the rotated vector
+     */
+    public Vector rotateZ(double angle) {
+        double sin = Math.sin(Math.toRadians(angle));
+        double cos = Math.cos(Math.toRadians(angle));
+
+        double x = cos * this.xyz.d1 - sin * this.xyz.d2;
+        double y = sin * this.xyz.d1 + cos * this.xyz.d2;
+        double z = this.xyz.d3;
+
+        return new Vector(x, y, z);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

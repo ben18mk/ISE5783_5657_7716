@@ -164,4 +164,286 @@ class VectorTest {
                 "ERROR: the normalized vector is not parallel to the original one"
         );
     }
+
+    /**
+     * Test method for {@link primitives.Vector#rotateX(double)}
+     */
+    @Test
+    void testRotateX() {
+        // ============ Equivalence Partitions Tests ==============
+        Vector v = new Vector(1, 2, 3);
+
+        // TC01: Rotate 45 degrees
+        assertEquals(
+                new Vector(1, -0.7071067811865, 3.535533905933),
+                v.rotateX(45),
+                "TC01: 45 degrees rotation - Wrong vector"
+        );
+
+        // TC02: Rotate 90 degrees
+        assertEquals(
+                new Vector(1, -3, 2),
+                v.rotateX(90),
+                "TC02: 90 degrees rotation - Wrong vector"
+        );
+
+        // TC03: Rotate 135 degrees
+        assertEquals(
+                new Vector(1, -3.535533905933, -0.7071067811865),
+                v.rotateX(135),
+                "TC03: 135 degrees rotation - Wrong vector"
+        );
+
+        // TC04: Rotate 180 degrees
+        assertEquals(
+                new Vector(1, -2, -3),
+                v.rotateX(180),
+                "TC04: 180 degrees rotation - Wrong vector"
+        );
+
+        // TC05: Rotate 225 degrees
+        assertEquals(
+                new Vector(1, 0.7071067811865, -3.535533905933),
+                v.rotateX(225),
+                "TC05: 225 degrees rotation - Wrong vector"
+        );
+
+        // TC06: Rotate 270 degrees
+        assertEquals(
+                new Vector(1, 3, -2),
+                v.rotateX(270),
+                "TC06: 270 degrees rotation - Wrong vector"
+        );
+
+        // TC07: Rotate 315 degrees
+        assertEquals(
+                new Vector(1, 3.535533905933, 0.7071067811865),
+                v.rotateX(315),
+                "TC07: 315 degrees rotation - Wrong vector"
+        );
+
+        // =============== Boundary Values Tests ==================
+        // TC10: Rotate 0 degrees
+        assertEquals(
+                v,
+                v.rotateX(0),
+                "TC10: 0 degrees rotation - Wrong vector"
+        );
+
+        // TC11: Rotate 360 degrees
+        assertEquals(
+                v,
+                v.rotateX(360),
+                "TC11: 360 degrees rotation - Wrong vector"
+        );
+
+        // TC12: Rotate 405 degrees
+        assertEquals(
+                new Vector(1, -0.7071067811865, 3.535533905933),
+                v.rotateX(405),
+                "TC12: 405 degrees rotation - Wrong vector"
+        );
+
+        // TC13: Rotate -90 degrees
+        assertEquals(
+                new Vector(1, 3, -2),
+                v.rotateX(-90),
+                "TC13: -90 degrees rotation - Wrong vector"
+        );
+
+        // TC14: Rotate -360 degrees
+        assertEquals(
+                v,
+                v.rotateX(-360),
+                "TC14: -360 degrees rotation - Wrong vector"
+        );
+    }
+
+    /**
+     * Test method for {@link primitives.Vector#rotateY(double)}
+     */
+    @Test
+    void testRotateY() {
+        // ============ Equivalence Partitions Tests ==============
+        Vector v = new Vector(1, 2, 3);
+
+        // TC01: Rotate 45 degrees
+        assertEquals(
+                new Vector(2.828427124746, 2, 1.414213562373),
+                v.rotateY(45),
+                "TC01: 45 degrees rotation - Wrong vector"
+        );
+
+        // TC02: Rotate 90 degrees
+        assertEquals(
+                new Vector(3, 2, -1),
+                v.rotateY(90),
+                "TC02: 90 degrees rotation - Wrong vector"
+        );
+
+        // TC03: Rotate 135 degrees
+        assertEquals(
+                new Vector(1.414213562373, 2, -2.828427124746),
+                v.rotateY(135),
+                "TC03: 135 degrees rotation - Wrong vector"
+        );
+
+        // TC04: Rotate 180 degrees
+        assertEquals(
+                new Vector(-1, 2, -3),
+                v.rotateY(180),
+                "TC04: 180 degrees rotation - Wrong vector"
+        );
+
+        // TC05: Rotate 225 degrees
+        assertEquals(
+                new Vector(-2.828427124746, 2, -1.414213562373),
+                v.rotateY(225),
+                "TC05: 225 degrees rotation - Wrong vector"
+        );
+
+        // TC06: Rotate 270 degrees
+        assertEquals(
+                new Vector(-3, 2, 1),
+                v.rotateY(270),
+                "TC06: 270 degrees rotation - Wrong vector"
+        );
+
+        // TC07: Rotate 315 degrees
+        assertEquals(
+                new Vector(-1.414213562373, 2, 2.828427124746),
+                v.rotateY(315),
+                "TC07: 315 degrees rotation - Wrong vector"
+        );
+
+        // =============== Boundary Values Tests ==================
+        // TC10: Rotate 0 degrees
+        assertEquals(
+                v,
+                v.rotateY(0),
+                "TC10: 0 degrees rotation - Wrong vector"
+        );
+
+        // TC11: Rotate 360 degrees
+        assertEquals(
+                v,
+                v.rotateY(360),
+                "TC11: 360 degrees rotation - Wrong vector"
+        );
+
+        // TC12: Rotate 405 degrees
+        assertEquals(
+                new Vector(2.828427124746, 2, 1.414213562373),
+                v.rotateY(405),
+                "TC12: 405 degrees rotation - Wrong vector"
+        );
+
+        // TC13: Rotate -90 degrees
+        assertEquals(
+                new Vector(-3, 2, 1),
+                v.rotateY(-90),
+                "TC13: -90 degrees rotation - Wrong vector"
+        );
+
+        // TC14: Rotate -360 degrees
+        assertEquals(
+                v,
+                v.rotateY(-360),
+                "TC14: -360 degrees rotation - Wrong vector"
+        );
+    }
+
+    /**
+     * Test method for {@link primitives.Vector#rotateZ(double)}
+     */
+    @Test
+    void testRotateZ() {
+        // ============ Equivalence Partitions Tests ==============
+        Vector v = new Vector(1, 2, 3);
+
+        // TC01: Rotate 45 degrees
+        assertEquals(
+                new Vector(-0.7071067811865, 2.121320343560, 3),
+                v.rotateZ(45),
+                "TC01: 45 degrees rotation - Wrong vector"
+        );
+
+        // TC02: Rotate 90 degrees
+        assertEquals(
+                new Vector(-2, 1, 3),
+                v.rotateZ(90),
+                "TC02: 90 degrees rotation - Wrong vector"
+        );
+
+        // TC03: Rotate 135 degrees
+        assertEquals(
+                new Vector(-2.121320343560, -0.7071067811865, 3),
+                v.rotateZ(135),
+                "TC03: 135 degrees rotation - Wrong vector"
+        );
+
+        // TC04: Rotate 180 degrees
+        assertEquals(
+                new Vector(-1, -2, 3),
+                v.rotateZ(180),
+                "TC04: 180 degrees rotation - Wrong vector"
+        );
+
+        // TC05: Rotate 225 degrees
+        assertEquals(
+                new Vector(0.7071067811865, -2.121320343560, 3),
+                v.rotateZ(225),
+                "TC05: 225 degrees rotation - Wrong vector"
+        );
+
+        // TC06: Rotate 270 degrees
+        assertEquals(
+                new Vector(2, -1, 3),
+                v.rotateZ(270),
+                "TC06: 270 degrees rotation - Wrong vector"
+        );
+
+        // TC07: Rotate 315 degrees
+        assertEquals(
+                new Vector(2.121320343560, 0.7071067811865, 3),
+                v.rotateZ(315),
+                "TC07: 315 degrees rotation - Wrong vector"
+        );
+
+        // =============== Boundary Values Tests ==================
+        // TC10: Rotate 0 degrees
+        assertEquals(
+                v,
+                v.rotateZ(0),
+                "TC10: 0 degrees rotation - Wrong vector"
+        );
+
+        // TC11: Rotate 360 degrees
+        assertEquals(
+                v,
+                v.rotateZ(360),
+                "TC11: 360 degrees rotation - Wrong vector"
+        );
+
+        // TC12: Rotate 405 degrees
+        assertEquals(
+                new Vector(-0.7071067811865, 2.121320343560, 3),
+                v.rotateZ(405),
+                "TC12: 405 degrees rotation - Wrong vector"
+        );
+
+        // TC13: Rotate -90 degrees
+        assertEquals(
+                new Vector(2, -1, 3),
+                v.rotateZ(-90),
+                "TC13: -90 degrees rotation - Wrong vector"
+        );
+
+        // TC14: Rotate -360 degrees
+        assertEquals(
+                v,
+                v.rotateZ(-360),
+                "TC14: -360 degrees rotation - Wrong vector"
+        );
+    }
 }

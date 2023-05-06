@@ -63,7 +63,7 @@ public class Sphere extends RadialGeometry {
         }
         catch (IllegalArgumentException e)
         {
-            return List.of(P0.add(v.scale(this.radius)));
+            return List.of(ray.getPoint(this.radius));
         }
 
         double tm = v.dotProduct(u);

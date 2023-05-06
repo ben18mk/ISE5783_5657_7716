@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Testing Sphere
+ * Testing Ray
  * @author Benjamin Mamistvalov
  */
 class RayTest {

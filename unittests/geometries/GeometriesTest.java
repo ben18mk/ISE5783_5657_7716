@@ -7,7 +7,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testing Geometries
+ * @author Benjamin Mamistvalov, Eyal Nathan
+ */
 class GeometriesTest {
+    /**
+     * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}
+     */
     @Test
     void testFindIntersections() {
         Geometries geometries = new Geometries(
