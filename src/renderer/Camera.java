@@ -137,7 +137,7 @@ public class Camera {
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
         // Image Center
-        Point pCenter = this.position.add(this.vTo.scale(this.distance));
+        Point pIJ = this.position.add(this.vTo.scale(this.distance));
 
         // Ratio (pixel width & height)
         double rY = (double)this.height / nY;
@@ -146,8 +146,6 @@ public class Camera {
         // Pixel[i, j] center
         double yI = -(i - (double)(nY - 1) / 2) * rY;
         double xJ = (j - (double)(nX - 1) / 2) * rX;
-        // Point pIJ = pC.add(this.vRight.scale(xJ).add(this.vUp.scale(yI)));
-        Point pIJ = pCenter;
         if (xJ != 0) pIJ = pIJ.add(this.vRight.scale(xJ));
         if (yI != 0) pIJ = pIJ.add(this.vUp.scale(yI));
 
