@@ -30,7 +30,7 @@ public class Scene {
      * @param background color
      * @return this Scene object
      */
-    Scene setBackground(Color background) {
+    public Scene setBackground(Color background) {
         this.background = background;
         return this;
     }
@@ -41,7 +41,7 @@ public class Scene {
      * @param ambientLight object
      * @return this Scene object
      */
-    Scene setAmbientLight(AmbientLight ambientLight) {
+    public Scene setAmbientLight(AmbientLight ambientLight) {
         this.ambientLight = ambientLight;
         return this;
     }
@@ -52,7 +52,7 @@ public class Scene {
      * @param geometries object
      * @return this Scene object
      */
-    Scene setGeometries(Geometries geometries) {
+    public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;
         return this;
     }

@@ -1,6 +1,9 @@
 package renderer;
 
 import primitives.*;
+import primitives.Point;
+
+import java.util.MissingResourceException;
 
 import static primitives.Util.*;
 
@@ -17,6 +20,8 @@ public class Camera {
     private int height;
     private int width;
     private double distance;
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
 
 
     /**
@@ -125,6 +130,28 @@ public class Camera {
         return this;
     }
 
+    /**
+     * Set the Image Writer
+     *
+     * @param imageWriter Image Writer
+     * @return the updated Camera object
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
+     * Set the Ray Tracer Base
+     *
+     * @param rayTracerBase Ray Tracer Base
+     * @return the updated Camera object
+     */
+    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
+    }
+
 
     /**
      * Creates the ray that passes at the center of the requested pixel on the View Plane
@@ -150,6 +177,62 @@ public class Camera {
         if (yI != 0) pIJ = pIJ.add(this.vUp.scale(yI));
 
         return new Ray(this.position, pIJ.subtract(this.position));
+    }
+
+    // TODO: UPDATE THIS JAVADOC
+    /**
+     * Renders the image
+     *
+     * @throws MissingResourceException if not all fields are initialized
+     * @throws UnsupportedOperationException PLACEHOLDER
+     */
+    public void renderImage() throws MissingResourceException, UnsupportedOperationException {
+        if (this.position == null ||
+            this.vTo == null ||
+            this.vUp == null ||
+            this.vRight == null ||
+            this.height <= 0 ||
+            this.width <= 0 ||
+            this.distance <= 0 ||
+            this.imageWriter == null ||
+            this.rayTracerBase == null)
+            throw new MissingResourceException("Missing resources", "Camera", "");
+        throw new UnsupportedOperationException("Placeholder");
+    }
+
+    // TODO: UPDATE THIS JAVADOC
+    /**
+     * Draws the grid into the image with the provided color
+     *
+     * @param interval grid slot size
+     * @param color color
+     * @throws MissingResourceException if the Image Writer field is uninitialized
+     */
+    public void printGrid(int interval, Color color) throws MissingResourceException {
+        if (this.imageWriter == null)
+            throw new MissingResourceException("Missing ImageWriter", "Camera", "");
+
+        int xPixels = this.imageWriter.getNx();
+        int yPixels = this.imageWriter.getNy();
+
+        for (int i = 0; i < yPixels; i++) {
+            for (int j = 0; j < xPixels; j++) {
+                if (i % interval == 0 || j % interval == 0)
+                    this.imageWriter.writePixel(i, j, color);
+            }
+        }
+    }
+
+    /**
+     * Writes the image to a file
+     *
+     * @throws MissingResourceException if the Image Writer field is uninitialized
+     */
+    public void writeToImage() throws MissingResourceException {
+        if (this.imageWriter == null)
+            throw new MissingResourceException("Missing ImageWriter", "Camera", "");
+
+        this.imageWriter.writeToImage();
     }
 
     /**
