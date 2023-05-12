@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * This class is base for all classes using rays
  *
@@ -43,6 +45,30 @@ public class Ray {
             throw new IllegalArgumentException("The t argument must be a positive number");
 
         return this.p0.add(this.dir.scale(t));
+    }
+
+    /**
+     * Finds the closes point to this ray's starting point out of a given list of points
+     *
+     * @param points list of points
+     * @return closes point this ray's starting point
+     */
+    public Point findClosestPoint(List<Point> points) {
+        if (points == null || points.size() == 0)
+            return null;
+
+        Point closest = null;
+        for (Point point : points) {
+            if (closest == null) {
+                closest = point;
+                continue;
+            }
+
+            if (point.distance(this.p0) < closest.distance(this.p0))
+                closest = point;
+        }
+
+        return closest;
     }
 
     @Override

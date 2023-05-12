@@ -5,8 +5,16 @@ import primitives.Color;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testing ImageWriter Class
+ *
+ * @author Benjamin Mamistvalov, Eyal Nathan
+ */
 class ImageWriterTest {
 
+    /**
+     * Test method to create a colored grid image
+     */
     @Test
     void basicImageTest() {
         int nX = 800;
