@@ -21,7 +21,7 @@ public class Camera {
     private int width;
     private double distance;
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private RayTracerBase rayTracer;
 
 
     /**
@@ -40,6 +40,17 @@ public class Camera {
         this.vTo = vTo.normalize();
         this.vUp = vUp.normalize();
         this.vRight = this.vTo.crossProduct(this.vUp);
+    }
+
+
+    /**
+     * Ray tracing color result
+     *
+     * @param ray ray
+     * @return color
+     */
+    private Color castRay(Ray ray) {
+        return this.rayTracer.traceRay(ray);
     }
 
 
@@ -144,11 +155,11 @@ public class Camera {
     /**
      * Set the Ray Tracer Base
      *
-     * @param rayTracerBase Ray Tracer Base
+     * @param rayTracer Ray Tracer Base
      * @return the updated Camera object
      */
-    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
         return this;
     }
 
@@ -179,14 +190,12 @@ public class Camera {
         return new Ray(this.position, pIJ.subtract(this.position));
     }
 
-    // TODO: UPDATE THIS JAVADOC
     /**
      * Renders the image
      *
      * @throws MissingResourceException if not all fields are initialized
-     * @throws UnsupportedOperationException PLACEHOLDER
      */
-    public void renderImage() throws MissingResourceException, UnsupportedOperationException {
+    public void renderImage() throws MissingResourceException {
         if (this.position == null ||
             this.vTo == null ||
             this.vUp == null ||
@@ -195,12 +204,21 @@ public class Camera {
             this.width <= 0 ||
             this.distance <= 0 ||
             this.imageWriter == null ||
-            this.rayTracerBase == null)
+            this.rayTracer == null)
             throw new MissingResourceException("Missing resources", "Camera", "");
-        throw new UnsupportedOperationException("Placeholder");
+
+        int xPixels = this.imageWriter.getNx();
+        int yPixels = this.imageWriter.getNy();
+
+        for (int i = 0; i < yPixels; i++) {
+            for (int j = 0; j < xPixels; j++) {
+                Ray ray = this.constructRay(xPixels, yPixels, j, i);
+                Color color = this.castRay(ray);
+                this.imageWriter.writePixel(j, i, color);
+            }
+        }
     }
 
-    // TODO: UPDATE THIS JAVADOC
     /**
      * Draws the grid into the image with the provided color
      *

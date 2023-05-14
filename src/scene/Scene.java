@@ -7,7 +7,7 @@ import primitives.Color;
 /**
  * This class represents a Scene
  *
- * @author Benjamin Mamistvalov
+ * @author Benjamin Mamistvalov, Eyal Nathan
  */
 public class Scene {
     public final String name;

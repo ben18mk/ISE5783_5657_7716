@@ -21,7 +21,6 @@ public abstract class RayTracerBase {
         this.scene = scene;
     }
 
-    // TODO: IMPROVE THIS JAVADOC
     /**
      * Returns the color of the first object a given ray intersects with
      *
