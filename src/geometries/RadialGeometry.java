@@ -5,7 +5,7 @@ package geometries;
  *
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
     protected final double radius;
 
     /**

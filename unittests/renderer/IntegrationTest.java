@@ -31,14 +31,16 @@ public class IntegrationTest {
      * Counts the total amount of intersections between all the camera's ray and a given geometry
      *
      * @param geometry the geometry
+     * @param nX1 Nx
+     * @param nY1 Ny
      * @return total amount of intersections
      */
-    private int countIntersections(Geometry geometry) {
+    private int countIntersections(Geometry geometry, int nX1, int nY1) {
         int counter = 0;
-        for (int i = 0; i < vpHeight; i++)
-            for (int j = 0; j < vpWidth; j++)
+        for (int i = 0; i < nX1; i++)
+            for (int j = 0; j < nY1; j++)
             {
-                Ray ray = this.camera.constructRay(nX, nY, j, i);
+                Ray ray = this.camera.constructRay(nX1, nY1, j, i);
                 List<Point> intersections = geometry.findIntersections(ray);
                 if (intersections != null)
                     counter += intersections.size();
@@ -62,7 +64,7 @@ public class IntegrationTest {
         Sphere sphere = new Sphere(new Point(0, 0, -3), 1);
         assertEquals(
                 2,
-                countIntersections(sphere),
+                countIntersections(sphere, nX, nY),
                 "TC01: Wrong amount of intersections"
         );
 
@@ -71,7 +73,7 @@ public class IntegrationTest {
         sphere = new Sphere(new Point(0, 0, -2.5), 2.5);
         assertEquals(
                 18,
-                countIntersections(sphere),
+                countIntersections(sphere, nX, nY),
                 "TC02: Wrong amount of intersections"
         );
 
@@ -79,7 +81,7 @@ public class IntegrationTest {
         sphere = new Sphere(new Point(0, 0, -2), 2);
         assertEquals(
                 10,
-                countIntersections(sphere),
+                countIntersections(sphere, nX, nY),
                 "TC03: Wrong amount of intersections"
         );
 
@@ -87,7 +89,7 @@ public class IntegrationTest {
         sphere = new Sphere(ZERO_POINT, 4);
         assertEquals(
                 9,
-                countIntersections(sphere),
+                countIntersections(sphere, nX, nY),
                 "TC04: Wrong amount of intersections"
         );
 
@@ -96,7 +98,7 @@ public class IntegrationTest {
         sphere = new Sphere(new Point(0, 0, 1), 0.5);
         assertEquals(
                 0,
-                countIntersections(sphere),
+                countIntersections(sphere, nX, nY),
                 "TC05: Wrong amount of intersections"
         );
     }
@@ -116,7 +118,7 @@ public class IntegrationTest {
         Plane plane = new Plane(new Point(0, 0, -4), new Vector(0, 0, 1));
         assertEquals(
                 9,
-                countIntersections(plane),
+                countIntersections(plane, nX, nY),
                 "TC01: Wrong amount of intersections"
         );
 
@@ -124,7 +126,7 @@ public class IntegrationTest {
         plane = new Plane(new Point(0, 2, -1), new Vector(0, 0.5, -1));
         assertEquals(
                 9,
-                countIntersections(plane),
+                countIntersections(plane, nX, nY),
                 "TC02: Wrong amount of intersections"
         );
 
@@ -132,7 +134,7 @@ public class IntegrationTest {
         plane = new Plane(new Point(0, 2, -1), new Vector(0, 5, -1));
         assertEquals(
                 6,
-                countIntersections(plane),
+                countIntersections(plane, nX, nY),
                 "TC03: Wrong amount of intersections"
         );
     }
@@ -156,7 +158,7 @@ public class IntegrationTest {
         );
         assertEquals(
                 1,
-                countIntersections(triangle),
+                countIntersections(triangle, nX, nY),
                 "TC01: Wrong amount of intersections"
         );
 
@@ -168,7 +170,7 @@ public class IntegrationTest {
         );
         assertEquals(
                 2,
-                countIntersections(triangle),
+                countIntersections(triangle, nX, nY),
                 "TC02: Wrong amount of intersections"
         );
     }

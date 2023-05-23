@@ -184,8 +184,8 @@ public class Camera {
         // Pixel[i, j] center
         double yI = -(i - (double)(nY - 1) / 2) * rY;
         double xJ = (j - (double)(nX - 1) / 2) * rX;
-        if (xJ != 0) pIJ = pIJ.add(this.vRight.scale(xJ));
-        if (yI != 0) pIJ = pIJ.add(this.vUp.scale(yI));
+        if (!isZero(xJ)) pIJ = pIJ.add(this.vRight.scale(xJ));
+        if (!isZero(yI)) pIJ = pIJ.add(this.vUp.scale(yI));
 
         return new Ray(this.position, pIJ.subtract(this.position));
     }
@@ -207,13 +207,13 @@ public class Camera {
             this.rayTracer == null)
             throw new MissingResourceException("Missing resources", "Camera", "");
 
-        int xPixels = this.imageWriter.getNx();
-        int yPixels = this.imageWriter.getNy();
+        int nx = this.imageWriter.getNx();
+        int ny = this.imageWriter.getNy();
 
-        for (int i = 0; i < yPixels; i++) {
-            for (int j = 0; j < xPixels; j++) {
-                Ray ray = this.constructRay(xPixels, yPixels, j, i);
-                Color color = this.castRay(ray);
+        for (int i = 0; i < ny; i++) {
+            for (int j = 0; j < nx; j++) {
+                Ray ray = constructRay(nx, ny, j, i);
+                Color color = castRay(ray);
                 this.imageWriter.writePixel(j, i, color);
             }
         }
@@ -230,11 +230,11 @@ public class Camera {
         if (this.imageWriter == null)
             throw new MissingResourceException("Missing ImageWriter", "Camera", "");
 
-        int xPixels = this.imageWriter.getNx();
-        int yPixels = this.imageWriter.getNy();
+        int nx = this.imageWriter.getNx();
+        int ny = this.imageWriter.getNy();
 
-        for (int i = 0; i < yPixels; i++) {
-            for (int j = 0; j < xPixels; j++) {
+        for (int i = 0; i < ny; i++) {
+            for (int j = 0; j < nx; j++) {
                 if (i % interval == 0 || j % interval == 0)
                     this.imageWriter.writePixel(i, j, color);
             }

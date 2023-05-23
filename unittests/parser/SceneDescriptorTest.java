@@ -2,6 +2,7 @@ package parser;
 
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
+import scene.parser.SceneDescriptor;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -34,7 +35,7 @@ class SceneDescriptorTest {
         Map<String, String> expected = new HashMap<>()
         {
             {
-                put("background-color", "75 127 90");
+                put("background-color", "75 127 190");
             }
         };
 

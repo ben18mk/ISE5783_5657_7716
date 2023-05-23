@@ -6,7 +6,7 @@ import geometries.Sphere;
 import geometries.Triangle;
 import lighting.AmbientLight;
 import org.xml.sax.SAXException;
-import parser.SceneDescriptor;
+import scene.parser.SceneDescriptor;
 import primitives.*;
 
 import javax.xml.parsers.ParserConfigurationException;

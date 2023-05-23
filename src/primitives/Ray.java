@@ -1,5 +1,7 @@
 package primitives;
 
+import geometries.Intersectable.GeoPoint;
+
 import java.util.List;
 
 /**
@@ -54,18 +56,27 @@ public class Ray {
      * @return closes point this ray's starting point
      */
     public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
+
+    /**
+     * Finds the closes GeoPoint to this ray's starting point out of a given list of points
+     *
+     * @param points list of GeoPoints
+     * @return closes GeoPoint this ray's starting point
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
         if (points == null || points.size() == 0)
             return null;
 
-        Point closest = null;
-        for (Point point : points) {
-            if (closest == null) {
+        GeoPoint closest = points.get(0);
+        double minDistanceSquared = closest.point.distanceSquared(this.p0);
+        for (GeoPoint point : points) {
+            if (point.point.distanceSquared(this.p0) < minDistanceSquared) {
                 closest = point;
-                continue;
+                minDistanceSquared = closest.point.distanceSquared(this.p0);
             }
-
-            if (point.distance(this.p0) < closest.distance(this.p0))
-                closest = point;
         }
 
         return closest;

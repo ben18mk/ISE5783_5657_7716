@@ -1,4 +1,4 @@
-package parser;
+package scene.parser;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
