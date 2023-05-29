@@ -9,6 +9,7 @@ import primitives.*;
  */
 public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;
+    private Material material = new Material();
 
     /**
      * Find the normal of the geometry at the given point on the surface of the geometry.
@@ -28,6 +29,15 @@ public abstract class Geometry extends Intersectable {
     }
 
     /**
+     * Gets the Material
+     *
+     * @return material
+     */
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    /**
      * Sets the emission color of this geometry
      *
      * @param emission new emission color
@@ -35,6 +45,17 @@ public abstract class Geometry extends Intersectable {
      */
     public Geometry setEmission(Color emission) {
         this.emission = emission;
+        return this;
+    }
+
+    /**
+     * Sets the Material of the geometry
+     *
+     * @param material new Material object
+     * @return the updated Geometry object
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
         return this;
     }
 }

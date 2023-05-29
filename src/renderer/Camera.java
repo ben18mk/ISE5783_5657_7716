@@ -195,7 +195,7 @@ public class Camera {
      *
      * @throws MissingResourceException if not all fields are initialized
      */
-    public void renderImage() throws MissingResourceException {
+    public Camera renderImage() throws MissingResourceException {
         if (this.position == null ||
             this.vTo == null ||
             this.vUp == null ||
@@ -217,6 +217,8 @@ public class Camera {
                 this.imageWriter.writePixel(j, i, color);
             }
         }
+
+        return this;
     }
 
     /**

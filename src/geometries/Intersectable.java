@@ -11,6 +11,8 @@ import primitives.*;
 public abstract class Intersectable {
     /**
      * This static class represents a GeoPoint
+     *
+     * @author Benjamin Mamistvalov, Eyal Nathan
      */
     public static class GeoPoint {
         public Geometry geometry;
