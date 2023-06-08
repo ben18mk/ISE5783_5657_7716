@@ -196,7 +196,7 @@ public class LightsTests {
       scene1.lights.add(
               new PointLight(
                       new Color(CYAN).scale(2),
-                      new Point(50, -50, 0)
+                      new Point(50, -40, 0)
               )
               .setKl(0.0008)
               .setKq(0.0001)

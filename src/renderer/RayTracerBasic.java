@@ -16,6 +16,8 @@ import static primitives.Util.isZero;
  * @author Benjamin Mamistvalov, Eyal Nathan
  */
 public class RayTracerBasic extends RayTracerBase {
+    private static final double DELTA = 0.1;
+
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
@@ -58,7 +60,7 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(point.point);
             double nl = alignZero(n.dotProduct(l));
 
-            if (nl * nv > 0) {
+            if (nl * nv > 0 && unshaded(point, l, n, lightSource)) {
                 Color lightIntensity = lightSource.getIntensity(point.point);
                 color = color.add(calcDiffusive(kd, nl, lightIntensity),
                                     calcSpecular(ks, nShininess, n, l, nl, v, lightIntensity));
@@ -98,6 +100,37 @@ public class RayTracerBasic extends RayTracerBase {
         if (minusVR <= 0)
             return Color.BLACK;
         return lightIntensity.scale(ks.scale(Math.pow(minusVR, nShininess)));
+    }
+
+    /**
+     * Checks whether a point is shadowed or not
+     *
+     * @param point geo point
+     * @param l vector from the light source to the point on the geometry
+     * @param n normal vector of the point
+     * @param light light source
+     * @return False if the pixel is shadowed
+     */
+    private boolean unshaded(GeoPoint point, Vector l, Vector n, LightSource light) {
+        Vector lightDirection = l.scale(-1);
+
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point pnt = point.point.add(delta);
+        Ray lightRay = new Ray(pnt, lightDirection);
+
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections != null && intersections.size() == 1 && intersections.get(0).geometry == point.geometry) {
+            intersections = null;
+        }
+
+        if (intersections == null)
+            return true;
+
+        double lightDistance = light.getDistance(point.point);
+        for (GeoPoint p : intersections)
+            if (Util.alignZero(point.point.distance(p.point) - lightDistance) <= 0)
+                return false;
+        return true;
     }
 
     @Override

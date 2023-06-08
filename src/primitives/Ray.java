@@ -13,6 +13,8 @@ public class Ray {
     private final Point p0;
     private final Vector dir;
 
+    private static final double DELTA = 0.1;
+
     /**
      * Constructor to initialize Ray based object with its start Point and direction Vector
      *
@@ -22,6 +24,18 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
+    }
+
+    /**
+     * Constructor to initialize Ray based object when the head is moved by DELTA
+     *
+     * @param head head of the ray - starting point of the ray
+     * @param direction ray direction
+     * @param normal normal to the geometry
+     */
+    public Ray(Point head, Vector direction, Vector normal) {
+        this.p0 = head.add(normal.scale(normal.dotProduct(direction) > 0 ? DELTA : -DELTA));
+        this.dir = direction.normalize();
     }
 
     /**
