@@ -284,7 +284,6 @@ public class Camera {
      * @return the updated Camera object
      */
     public Camera rotateX(double angle) {
-        this.vTo = this.vTo.rotateX(angle);
         this.vUp = this.vUp.rotateX(angle);
         this.vRight = this.vRight.rotateX(angle);
         return this;
@@ -299,7 +298,6 @@ public class Camera {
     public Camera rotateY(double angle) {
         this.vTo = this.vTo.rotateY(angle);
         this.vUp = this.vUp.rotateY(angle);
-        this.vRight = this.vRight.rotateY(angle);
         return this;
     }
 
@@ -311,7 +309,6 @@ public class Camera {
      */
     public Camera rotateZ(double angle) {
         this.vTo = this.vTo.rotateZ(angle);
-        this.vUp = this.vUp.rotateZ(angle);
         this.vRight = this.vRight.rotateZ(angle);
         return this;
     }

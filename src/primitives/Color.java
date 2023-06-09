@@ -4,7 +4,7 @@ package primitives;
  * non-negative RGB values. The colors are maintained without upper limit of
  * 255. Some additional operations are added that are useful for manipulating
  * light's colors
- * @author Dan Zilberstein */
+ * @author Dan Zilberstein, Benjamin Mamistvalov */
 public class Color {
    /** The internal fields maintain RGB components as double numbers from 0 to
     * whatever... */
@@ -51,6 +51,15 @@ public class Color {
       int ig = (int) rgb.d2;
       int ib = (int) rgb.d3;
       return new java.awt.Color(ir > 255 ? 255 : ir, ig > 255 ? 255 : ig, ib > 255 ? 255 : ib);
+   }
+
+   /**
+    * Gets the RGB Double3
+    *
+    * @return RGB Double3
+    */
+   public Double3 getRgb() {
+      return this.rgb;
    }
 
    /** Operation of adding this and one or more other colors (by component)
