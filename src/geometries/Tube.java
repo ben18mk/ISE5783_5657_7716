@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -47,7 +48,58 @@ public class Tube extends RadialGeometry {
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        return null;
+        Point rayStart = ray.getStartPoint();
+        Point tubeStart = this.axisRay.getStartPoint();
+        Vector rayDir = ray.getDirection();
+        Vector tubeDir = this.axisRay.getDirection();
+        Vector k;
+
+        try {
+            k = rayDir.crossProduct(tubeDir);
+        }
+        catch (IllegalArgumentException ex) {
+            return null;
+        }
+
+        Vector e;
+        try {
+            e = rayStart.subtract(tubeStart).crossProduct(tubeDir);
+        }
+        catch (IllegalArgumentException ex) {
+            List<GeoPoint> intersections = new LinkedList<>();
+            intersections.add(new GeoPoint(this, rayStart.add(rayDir.scale(this.radius / k.length()))));
+            return intersections;
+        }
+
+        double a = k.lengthSquared();
+        double b = 2 * k.dotProduct(e);
+        double c = e.lengthSquared() - this.radius * this.radius;
+        double delta = alignZero(b * b - 4 * a * c);
+
+        if (delta < 0)
+            return null;
+
+        if (delta == 0) {
+            double t = alignZero((-b)/(2*a));
+            if (t <= 0)
+                return null;
+
+            List<GeoPoint> intersections = new LinkedList<>();
+            intersections.add(new GeoPoint(this, rayStart.add(rayDir.scale(t))));
+            return intersections;
+        }
+
+        double sDelta = Math.sqrt(delta);
+        double t1 = alignZero((-b + sDelta) / (2 * a));
+        double t2 = alignZero((-b - sDelta) / (2 * a));
+        if (t1 <= 0)
+            return null;
+        List<GeoPoint> intersections = new LinkedList<>();
+        if (t2 > 0 && alignZero(t2 - maxDistance) <= 0)
+            intersections.add(new GeoPoint(this, rayStart.add(rayDir.scale(t2))));
+        if (alignZero(t1 - maxDistance) <= 0)
+            intersections.add(new GeoPoint(this, rayStart.add(rayDir.scale(t1))));
+        return intersections;
     }
 
     @Override

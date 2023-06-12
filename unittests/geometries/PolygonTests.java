@@ -8,9 +8,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static primitives.Util.isZero;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /** Testing Polygons
  * @author Dan */
@@ -120,5 +124,49 @@ public class PolygonTests {
       for (int i = 0; i < 3; ++i)
          assertTrue(isZero(result.dotProduct(pts[i].subtract(pts[i == 0 ? 3 : i - 1]))),
                     "Polygon's normal is not orthogonal to one of the edges");
+   }
+
+   /**
+    * Test method for {@link geometries.Polygon#findGeoIntersections(primitives.Ray, double)}
+    */
+   @Test
+   void testFindGeoIntersections() {
+      Polygon polygon = new Polygon(new Point(2, 2, 0),
+              new Point(-2, 2, 0),
+              new Point(-2, -2, 0),
+              new Point(2, -2, 0));
+
+      // ================== Equivalence Partition Tests ======================
+      // EP01: Ray intersects with polygon (1 point)
+      List<Point> result = polygon.findIntersections(new Ray(new Point(0.75, 0.75, 0.75),
+              new Vector(0, 0, -1)));
+      assertEquals(1, result.size(), "EP01: Wrong number of points");
+      assertEquals(List.of(new Point(0.75, 0.75, 0)), result, "EP01: Ray crosses polygon");
+
+      // EP02: Ray intersects with the plane against the edge of polygon (0 points)
+      result = polygon.findIntersections(new Ray(new Point(3, 1.5, 0.75),
+              new Vector(0, 0, -1)));
+      assertNull(result, "EP02: Wrong number of points");
+
+      // EP03: Ray intersects with the plane against the vertex of polygon (0 points)
+      result = polygon.findIntersections(new Ray(new Point(3, 3, 0.75),
+              new Vector(0, 0, -1)));
+      assertNull(result, "EP03: Wrong number of points");
+
+      // =============== Boundary Values Tests ==================
+      // BVA01: Ray intersects with edge (0 points)
+      result = polygon.findIntersections(new Ray(new Point(2, 1, 0.75),
+              new Vector(0, 0, -1)));
+      assertNull( result, "BV01: Wrong number of points");
+
+      // BVA02: Ray intersects with vertex (0 points)
+      result = polygon.findIntersections(new Ray(new Point(2, 2, 0.75),
+              new Vector(0, 0, -1)));
+      assertNull(result, "BV02: Wrong number of points");
+
+      // BVA03: Ray intersects with edge's continuation (0 points)
+      result = polygon.findIntersections(new Ray(new Point(2, 3, 0.75),
+              new Vector(0, 0, -1)));
+      assertNull(result, "BV03: Wrong number of points");
    }
 }

@@ -1,7 +1,9 @@
 package geometries;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import primitives.Point;
@@ -83,6 +85,35 @@ public class Polygon extends Geometry {
 
    @Override
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-      return null;
+      List<GeoPoint> intersections = this.plane.findGeoIntersectionsHelper(ray, maxDistance);
+
+      if (intersections == null)
+         return null;
+
+      // Check if the point is in the polygon
+      List<Vector> vectors = new ArrayList<>(this.vertices.size());
+
+      Point start = ray.getStartPoint();
+      for (Point vertice : this.vertices)
+         vectors.add(vertice.subtract(start));
+
+      List<Vector> normals = new ArrayList<>(vertices.size());
+      for (int i = 0; i < vertices.size(); ++i)
+         normals.add(vectors.get(i).crossProduct(vectors.get((i + 1) % vertices.size())).normalize());
+
+      Vector dir = ray.getDirection();
+      double initSign = alignZero(dir.dotProduct(normals.get(0)));
+      if (initSign == 0)
+         return null;
+
+      for (Vector normal : normals) {
+         double sign = alignZero(dir.dotProduct(normal));
+         if (sign * initSign <= 0)
+            return null;
+      }
+
+      // Return the result
+      intersections.get(0).geometry = this;
+      return intersections;
    }
 }
