@@ -3,6 +3,7 @@ package renderer;
 import primitives.*;
 import primitives.Point;
 
+import java.util.List;
 import java.util.MissingResourceException;
 
 import static primitives.Util.*;
@@ -22,6 +23,7 @@ public class Camera {
     private double distance;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
+    private final SuperSampling antiAliasing = new SuperSampling();
 
 
     /**
@@ -163,9 +165,19 @@ public class Camera {
         return this;
     }
 
-
     /**
-     * Creates the ray that passes at the center of the requested pixel on the View Plane
+     * Set the anti aliasing rays grid
+     *
+     * @param amount of rays
+     * @return the updated Camera object
+     */
+    public Camera setAntiAliasing(int amount) {
+        this.antiAliasing.setSize(amount);
+        return this;
+    }
+
+     /**
+     * Creates the rays that pass at the center of the requested pixel on the View Plane
      *
      * @param nX amount of column in the View Plane
      * @param nY amount of rows in the View Plane
@@ -173,21 +185,24 @@ public class Camera {
      * @param i pixel row index
      * @return the ray that passes at the center of the requested pixel on the View Plane
      */
-    public Ray constructRay(int nX, int nY, int j, int i) {
+    public List<Ray> constructRay(int nX, int nY, int j, int i) {
         // Image Center
         Point pIJ = this.position.add(this.vTo.scale(this.distance));
 
         // Ratio (pixel width & height)
-        double rY = (double)this.height / nY;
-        double rX = (double)this.width / nX;
+        double rX = (double) this.width / nX;
+        double rY = (double) this.height / nY;
 
-        // Pixel[i, j] center
-        double yI = -(i - (double)(nY - 1) / 2) * rY;
-        double xJ = (j - (double)(nX - 1) / 2) * rX;
-        if (!isZero(xJ)) pIJ = pIJ.add(this.vRight.scale(xJ));
-        if (!isZero(yI)) pIJ = pIJ.add(this.vUp.scale(yI));
+        // Construct rays
+        double xJ = (j - ((double) (nX - 1) / 2)) * rX;
+        double yI = -(i - ((double) (nY - 1) / 2)) * rY;
 
-        return new Ray(this.position, pIJ.subtract(this.position));
+        if (xJ != 0)
+            pIJ = pIJ.add(vRight.scale(xJ));
+        if (yI != 0)
+            pIJ = pIJ.add(vUp.scale(yI));
+
+        return this.antiAliasing.constructRaysThroughGrid(rX, rY, this.position, pIJ, this.vUp, this.vRight);
     }
 
     /**
@@ -212,9 +227,12 @@ public class Camera {
 
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
-                Ray ray = constructRay(nx, ny, j, i);
-                Color color = castRay(ray);
-                this.imageWriter.writePixel(j, i, color);
+                List<Ray> rays = constructRay(nx, ny, j, i);
+                Color color = Color.BLACK;
+                for (Ray ray : rays)
+                    color = color.add(this.rayTracer.traceRay(ray));
+
+                this.imageWriter.writePixel(j, i, color.reduce(rays.size()));
             }
         }
 

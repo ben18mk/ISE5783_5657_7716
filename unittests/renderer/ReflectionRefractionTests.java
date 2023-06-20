@@ -174,7 +174,8 @@ public class ReflectionRefractionTests {
               new Vector(9, 0, 8.5))
               .setVPSize(200, 200)
               .setVPDistance(300)
-              .rotateX(10);
+              .rotateX(10)
+              .setAntiAliasing(20);
 
       ImageWriter imageWriter = new ImageWriter("customReflectionShadow1", 600, 600);
       camera.setImageWriter(imageWriter)
@@ -188,7 +189,8 @@ public class ReflectionRefractionTests {
               new Vector(7.5, 6, -9),
               new Vector(9, 0, 7.5))
               .setVPSize(200, 200)
-              .setVPDistance(300);
+              .setVPDistance(300)
+              .setAntiAliasing(20);
       imageWriter = new ImageWriter("customReflectionShadow2", 600, 600);
       camera.setImageWriter(imageWriter)
               .setRayTracer(new RayTracerBasic(scene))
@@ -201,7 +203,8 @@ public class ReflectionRefractionTests {
               new Vector(0.5, 8, -9),
               new Vector(0, 9, 8))
               .setVPSize(200, 200)
-              .setVPDistance(300);
+              .setVPDistance(300)
+              .setAntiAliasing(20);
       imageWriter = new ImageWriter("customReflectionShadow3", 600, 600);
       camera.setImageWriter(imageWriter)
               .setRayTracer(new RayTracerBasic(scene))
@@ -214,7 +217,8 @@ public class ReflectionRefractionTests {
               new Vector(2.5, -10, -7),
               new Vector(2.5, -10, 15.178571428571429))
               .setVPSize(200, 200)
-              .setVPDistance(300);
+              .setVPDistance(300)
+              .setAntiAliasing(20);
       imageWriter = new ImageWriter("customReflectionShadow4", 600, 600);
       camera.setImageWriter(imageWriter)
               .setRayTracer(new RayTracerBasic(scene))
@@ -230,7 +234,8 @@ public class ReflectionRefractionTests {
               .setVPDistance(300)
               .rotateX(-3)
               .rotateY(-7.5)
-              .rotateZ(-5);
+              .rotateZ(-5)
+              .setAntiAliasing(20);
       imageWriter = new ImageWriter("customReflectionShadow5", 600, 600);
       camera.setImageWriter(imageWriter)
               .setRayTracer(new RayTracerBasic(scene))

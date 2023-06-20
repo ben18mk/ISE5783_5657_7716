@@ -38,6 +38,17 @@ public class Geometries extends Intersectable {
         this.geometries.addAll(List.of(geometries));
     }
 
+    /**
+     * Adds geometries to the collection
+     *
+     * @param others other geometries objects
+     */
+    public void add(Geometries... others) {
+        for (Geometries other : others) {
+            this.geometries.addAll(other.geometries);
+        }
+    }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> result = null;

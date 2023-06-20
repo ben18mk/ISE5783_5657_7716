@@ -37,13 +37,19 @@ public class IntegrationTest {
      */
     private int countIntersections(Geometry geometry, int nX1, int nY1) {
         int counter = 0;
+        List<Point> intersections;
+
         for (int i = 0; i < nX1; i++)
             for (int j = 0; j < nY1; j++)
             {
-                Ray ray = this.camera.constructRay(nX1, nY1, j, i);
-                List<Point> intersections = geometry.findIntersections(ray);
-                if (intersections != null)
-                    counter += intersections.size();
+                List <Ray> rayList = camera.constructRay(this.nX, this.nY, j, i);
+
+                for (Ray ray: rayList) {
+                    intersections = geometry.findIntersections(ray);
+
+                    if (intersections != null)
+                        counter += intersections.size();
+                }
             }
 
         return counter;
