@@ -5,6 +5,7 @@ import primitives.Point;
 
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
 
 import static primitives.Util.*;
 
@@ -225,16 +226,16 @@ public class Camera {
         int nx = this.imageWriter.getNx();
         int ny = this.imageWriter.getNy();
 
-        for (int i = 0; i < ny; i++) {
-            for (int j = 0; j < nx; j++) {
+        IntStream.range(0, ny).parallel().forEach(i -> {
+            IntStream.range(0, nx).parallel().forEach(j -> {
                 List<Ray> rays = constructRay(nx, ny, j, i);
                 Color color = Color.BLACK;
                 for (Ray ray : rays)
                     color = color.add(this.rayTracer.traceRay(ray));
 
                 this.imageWriter.writePixel(j, i, color.reduce(rays.size()));
-            }
-        }
+            });
+        });
 
         return this;
     }
